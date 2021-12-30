@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_not_sepeti/models/kategori.dart';
+import 'package:flutter_not_sepeti/not_detay.dart';
 import 'package:flutter_not_sepeti/utils/database_helper.dart';
 
 void main() {
@@ -42,6 +43,7 @@ class NotListesi extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'kategoriEkle',
             tooltip: 'Kategori Ekle',
             onPressed: () {
               kategoriEkleDialog(context);
@@ -50,14 +52,20 @@ class NotListesi extends StatelessWidget {
             mini: true,
           ),
           FloatingActionButton(
+            heroTag: 'notEkle',
             tooltip: 'Not Ekle',
-            onPressed: () {},
+            onPressed: () => _detaySayfasinaGit(context),
             child: const Icon(Icons.add),
           ),
         ],
       ),
       body: Container(),
     );
+  }
+
+  _detaySayfasinaGit(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => NotDetay(baslik: 'Yeni Not')));
   }
 
   void kategoriEkleDialog(BuildContext context) {
@@ -115,8 +123,10 @@ class NotListesi extends StatelessWidget {
                               _scaffoldKey.currentState!.showSnackBar(
                                 const SnackBar(
                                   content: Text('Kategori Eklendi.'),
+                                  duration: Duration(seconds: 2),
                                 ),
                               );
+                              Navigator.pop(context);
                             }
                           });
                         }
